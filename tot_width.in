@@ -1,0 +1,280 @@
+# Arian Noori
+# ECE 548 Final Project
+#https://www.youtube.com/watch?v=b5euVhhyBWw
+#https://www.youtube.com/watch?v=0ZOrv67YIME
+
+###################
+# 9um total width #
+###################
+go atlas
+# Define the default mesh
+mesh    space.mult=2.0 width=0.9
+x.mesh loc=0.00 spac=0.5
+x.mesh loc=2.00 spac=0.5
+x.mesh loc=4.00 spac=0.5
+x.mesh loc=6.00 spac=0.5
+x.mesh loc=8.00 spac=0.5
+x.mesh loc=10.00 spac=0.5
+x.mesh loc=12.00 spac=0.5
+x.mesh loc=14.00 spac=0.5
+x.mesh loc=16.00 spac=0.5
+x.mesh loc=18.00 spac=0.5
+x.mesh loc=20.00 spac=0.5
+x.mesh loc=22.00 spac=0.5
+x.mesh loc=24.00 spac=0.5
+x.mesh loc=26.00 spac=0.5
+x.mesh loc=28.00 spac=0.5
+x.mesh loc=30.00 spac=0.5
+x.mesh loc=32.00 spac=0.5
+x.mesh loc=34.00 spac=0.5
+x.mesh loc=36.00 spac=0.5
+x.mesh loc=38.00 spac=0.5
+x.mesh loc=40.00 spac=0.5
+
+y.mesh loc=0.00 spac=0.5
+y.mesh loc=2.00 spac=0.5
+y.mesh loc=4.00 spac=0.5
+y.mesh loc=6.00 spac=0.5
+y.mesh loc=8.00 spac=0.5
+y.mesh loc=10.00 spac=0.5
+y.mesh loc=12.00 spac=0.5
+y.mesh loc=14.00 spac=0.5
+y.mesh loc=16.00 spac=0.5
+y.mesh loc=18.00 spac=0.5
+y.mesh loc=20.00 spac=0.5
+y.mesh loc=22.00 spac=0.5
+y.mesh loc=24.00 spac=0.5
+y.mesh loc=26.00 spac=0.5
+y.mesh loc=28.00 spac=0.5
+y.mesh loc=30.00 spac=0.5
+y.mesh loc=32.00 spac=0.5
+y.mesh loc=34.00 spac=0.5
+y.mesh loc=36.00 spac=0.5
+y.mesh loc=38.00 spac=0.5
+y.mesh loc=40.00 spac=0.5
+
+# Define the regions (i-region width = 20um)
+region  number=1 x.min=0    x.max=10      y.min=0 y.max=40    user.material=Si_custom
+region  number=2 x.min=10   x.max=30      y.min=0 y.max=40    user.material=Si_custom
+region  number=3 x.min=30   x.max=40      y.min=0 y.max=40    user.material=Si_custom
+
+# Electrodes
+electrode   name=anode   number=1 x.min=0  x.max=1   y.min=0 y.max=40
+electrode   name=cathode number=2 x.min=39  x.max=40 y.min=0 y.max=40
+
+doping  uniform conc=5e14 p.type region=1
+# Region 2 is intrinsic
+doping  uniform conc=5e19 n.type region=3
+
+# Define custom properties: Eg, velocities, etc
+# The default of our custom material is just Si
+material material=Si_custom user.default=Si
+
+# Set models and temperature
+models srh fldmob temperature=300 print
+
+# Create Ohmic contacts
+contact name=cathode neutral
+contact name=anode neutral
+
+output con.band val.band e.velocity e.field e.temp noise charge
+
+# Solve using Newton's Method
+method newton itlimit=20 maxtrap=10 carriers=2
+solve init
+# Set Cathode to GND
+solve vcathode=0
+
+log outf=t_9um.log
+
+# Sweep anode voltage
+solve name=anode vanode=-2 vstep=1 vfinal=10
+
+save outf=s_9um.str
+tonyplot s_9um.str -set i_width_str.set
+
+###################
+# 8um total width #
+###################
+go atlas
+# Define the default mesh
+mesh    space.mult=2.0 width=0.8
+x.mesh loc=0.00 spac=0.5
+x.mesh loc=2.00 spac=0.5
+x.mesh loc=4.00 spac=0.5
+x.mesh loc=6.00 spac=0.5
+x.mesh loc=8.00 spac=0.5
+x.mesh loc=10.00 spac=0.5
+x.mesh loc=12.00 spac=0.5
+x.mesh loc=14.00 spac=0.5
+x.mesh loc=16.00 spac=0.5
+x.mesh loc=18.00 spac=0.5
+x.mesh loc=20.00 spac=0.5
+x.mesh loc=22.00 spac=0.5
+x.mesh loc=24.00 spac=0.5
+x.mesh loc=26.00 spac=0.5
+x.mesh loc=28.00 spac=0.5
+x.mesh loc=30.00 spac=0.5
+x.mesh loc=32.00 spac=0.5
+x.mesh loc=34.00 spac=0.5
+x.mesh loc=36.00 spac=0.5
+x.mesh loc=38.00 spac=0.5
+x.mesh loc=40.00 spac=0.5
+
+y.mesh loc=0.00 spac=0.5
+y.mesh loc=2.00 spac=0.5
+y.mesh loc=4.00 spac=0.5
+y.mesh loc=6.00 spac=0.5
+y.mesh loc=8.00 spac=0.5
+y.mesh loc=10.00 spac=0.5
+y.mesh loc=12.00 spac=0.5
+y.mesh loc=14.00 spac=0.5
+y.mesh loc=16.00 spac=0.5
+y.mesh loc=18.00 spac=0.5
+y.mesh loc=20.00 spac=0.5
+y.mesh loc=22.00 spac=0.5
+y.mesh loc=24.00 spac=0.5
+y.mesh loc=26.00 spac=0.5
+y.mesh loc=28.00 spac=0.5
+y.mesh loc=30.00 spac=0.5
+y.mesh loc=32.00 spac=0.5
+y.mesh loc=34.00 spac=0.5
+y.mesh loc=36.00 spac=0.5
+y.mesh loc=38.00 spac=0.5
+y.mesh loc=40.00 spac=0.5
+
+# Define the regions (i-region width = 20um)
+region  number=1 x.min=0    x.max=10      y.min=0 y.max=40    user.material=Si_custom
+region  number=2 x.min=10   x.max=30      y.min=0 y.max=40    user.material=Si_custom
+region  number=3 x.min=30   x.max=40      y.min=0 y.max=40    user.material=Si_custom
+
+# Electrodes
+electrode   name=anode   number=1 x.min=0  x.max=1   y.min=0 y.max=40
+electrode   name=cathode number=2 x.min=39  x.max=40 y.min=0 y.max=40
+
+doping  uniform conc=5e14 p.type region=1
+# Region 2 is intrinsic
+doping  uniform conc=5e19 n.type region=3
+
+# Define custom properties: Eg, velocities, etc
+# The default of our custom material is just Si
+material material=Si_custom user.default=Si
+
+# Set models and temperature
+models srh fldmob temperature=300 print
+
+# Create Ohmic contacts
+contact name=cathode neutral
+contact name=anode neutral
+
+output con.band val.band e.velocity e.field e.temp noise charge
+
+# Solve using Newton's Method
+method newton itlimit=20 maxtrap=10 carriers=2
+solve init
+# Set Cathode to GND
+solve vcathode=0
+
+log outf=t_8um.log
+
+# Sweep anode voltage
+solve name=anode vanode=-2 vstep=1 vfinal=10
+
+save outf=s_8um.str
+tonyplot s_8um.str -set i_width_str.set
+
+###################
+# 7um total width #
+###################
+go atlas
+# Define the default mesh
+mesh    space.mult=2.0 width=0.7
+x.mesh loc=0.00 spac=0.5
+x.mesh loc=2.00 spac=0.5
+x.mesh loc=4.00 spac=0.5
+x.mesh loc=6.00 spac=0.5
+x.mesh loc=8.00 spac=0.5
+x.mesh loc=10.00 spac=0.5
+x.mesh loc=12.00 spac=0.5
+x.mesh loc=14.00 spac=0.5
+x.mesh loc=16.00 spac=0.5
+x.mesh loc=18.00 spac=0.5
+x.mesh loc=20.00 spac=0.5
+x.mesh loc=22.00 spac=0.5
+x.mesh loc=24.00 spac=0.5
+x.mesh loc=26.00 spac=0.5
+x.mesh loc=28.00 spac=0.5
+x.mesh loc=30.00 spac=0.5
+x.mesh loc=32.00 spac=0.5
+x.mesh loc=34.00 spac=0.5
+x.mesh loc=36.00 spac=0.5
+x.mesh loc=38.00 spac=0.5
+x.mesh loc=40.00 spac=0.5
+
+y.mesh loc=0.00 spac=0.5
+y.mesh loc=2.00 spac=0.5
+y.mesh loc=4.00 spac=0.5
+y.mesh loc=6.00 spac=0.5
+y.mesh loc=8.00 spac=0.5
+y.mesh loc=10.00 spac=0.5
+y.mesh loc=12.00 spac=0.5
+y.mesh loc=14.00 spac=0.5
+y.mesh loc=16.00 spac=0.5
+y.mesh loc=18.00 spac=0.5
+y.mesh loc=20.00 spac=0.5
+y.mesh loc=22.00 spac=0.5
+y.mesh loc=24.00 spac=0.5
+y.mesh loc=26.00 spac=0.5
+y.mesh loc=28.00 spac=0.5
+y.mesh loc=30.00 spac=0.5
+y.mesh loc=32.00 spac=0.5
+y.mesh loc=34.00 spac=0.5
+y.mesh loc=36.00 spac=0.5
+y.mesh loc=38.00 spac=0.5
+y.mesh loc=40.00 spac=0.5
+
+# Define the regions (i-region width = 20um)
+region  number=1 x.min=0    x.max=10      y.min=0 y.max=40    user.material=Si_custom
+region  number=2 x.min=10   x.max=30      y.min=0 y.max=40    user.material=Si_custom
+region  number=3 x.min=30   x.max=40      y.min=0 y.max=40    user.material=Si_custom
+
+# Electrodes
+electrode   name=anode   number=1 x.min=0  x.max=1   y.min=0 y.max=40
+electrode   name=cathode number=2 x.min=39  x.max=40 y.min=0 y.max=40
+
+doping  uniform conc=5e14 p.type region=1
+# Region 2 is intrinsic
+doping  uniform conc=5e19 n.type region=3
+
+# Define custom properties: Eg, velocities, etc
+# The default of our custom material is just Si
+material material=Si_custom user.default=Si
+
+# Set models and temperature
+models srh fldmob temperature=300 print
+
+# Create Ohmic contacts
+contact name=cathode neutral
+contact name=anode neutral
+
+output con.band val.band e.velocity e.field e.temp noise charge
+
+# Solve using Newton's Method
+method newton itlimit=20 maxtrap=10 carriers=2
+solve init
+# Set Cathode to GND
+solve vcathode=0
+
+log outf=t_7um.log
+
+# Sweep anode voltage
+solve name=anode vanode=-2 vstep=1 vfinal=10
+
+save outf=s_7um.str
+tonyplot s_7um.str -set i_width_str.set
+
+#########################
+# Plot IV Curve and Quit#
+#########################
+tonyplot -overlay t_7um.log t_8um.log t_9um.log -set tot_width.set
+quit
