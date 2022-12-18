@@ -1,12 +1,12 @@
 # Arian Noori
 # ECE 548 Final Project
 
-###################
-# 9um total width #
-###################
+####################
+# 90um total width #
+####################
 go atlas
 # Define the default mesh
-mesh    space.mult=2.0 width=0.9
+mesh    space.mult=2.0 width=90
 x.mesh loc=0.00 spac=0.5
 x.mesh loc=2.00 spac=0.5
 x.mesh loc=4.00 spac=0.5
@@ -83,20 +83,20 @@ solve init
 # Set Cathode to GND
 solve vcathode=0
 
-log outf=t_9um.log
+log outf=t_90um.log
 
 # Sweep anode voltage
-solve name=anode vanode=-2 vstep=1 vfinal=10
+solve name=anode vanode=0 vstep=.5 vfinal=5
 
-save outf=s_9um.str
+save outf=s_90um.str
 tonyplot s_9um.str -set i_width_str.set
 
-###################
-# 8um total width #
-###################
+####################
+# 80um total width #
+####################
 go atlas
 # Define the default mesh
-mesh    space.mult=2.0 width=0.8
+mesh    space.mult=2.0 width=80
 x.mesh loc=0.00 spac=0.5
 x.mesh loc=2.00 spac=0.5
 x.mesh loc=4.00 spac=0.5
@@ -173,20 +173,20 @@ solve init
 # Set Cathode to GND
 solve vcathode=0
 
-log outf=t_8um.log
+log outf=t_80um.log
 
 # Sweep anode voltage
-solve name=anode vanode=-2 vstep=1 vfinal=10
+solve name=anode vanode=0 vstep=.5 vfinal=5
 
 save outf=s_8um.str
 tonyplot s_8um.str -set i_width_str.set
 
-###################
-# 7um total width #
-###################
+####################
+# 70um total width #
+####################
 go atlas
 # Define the default mesh
-mesh    space.mult=2.0 width=0.7
+mesh    space.mult=2.0 width=70
 x.mesh loc=0.00 spac=0.5
 x.mesh loc=2.00 spac=0.5
 x.mesh loc=4.00 spac=0.5
@@ -263,10 +263,10 @@ solve init
 # Set Cathode to GND
 solve vcathode=0
 
-log outf=t_7um.log
+log outf=t_70um.log
 
 # Sweep anode voltage
-solve name=anode vanode=-2 vstep=1 vfinal=10
+solve name=anode vanode=0 vstep=.5 vfinal=5
 
 save outf=s_7um.str
 tonyplot s_7um.str -set i_width_str.set
@@ -274,5 +274,5 @@ tonyplot s_7um.str -set i_width_str.set
 #########################
 # Plot IV Curve and Quit#
 #########################
-tonyplot -overlay t_7um.log t_8um.log t_9um.log -set tot_width.set
+tonyplot -overlay t_80um.log t_90um.log t_70um.log
 quit

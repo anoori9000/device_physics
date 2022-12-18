@@ -5,3 +5,4 @@
 *.i_width
 *.temp_comp
 core
+.tot_width/
